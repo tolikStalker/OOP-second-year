@@ -9,16 +9,16 @@ class Function {
 
  public:
   Function(double a, double b) : a(a), b(b) {}
-  // Функция вычисления значения функции
+  // Р¤СѓРЅРєС†РёСЏ РІС‹С‡РёСЃР»РµРЅРёСЏ Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё
   virtual double calculateFunction() = 0;
-  // Функция вывода значения функции
+  // Р¤СѓРЅРєС†РёСЏ РІС‹РІРѕРґР° Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё
   virtual void print() = 0;
-  // Функция, устанавливающая новое значение х
+  // Р¤СѓРЅРєС†РёСЏ, СѓСЃС‚Р°РЅР°РІР»РёРІР°СЋС‰Р°СЏ РЅРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ С…
   void setX(double xVar) { x = xVar; }
   virtual ~Function() {}
 };
 
-// Производный класс эллипса
+// РџСЂРѕРёР·РІРѕРґРЅС‹Р№ РєР»Р°СЃСЃ СЌР»Р»РёРїСЃР°
 class Ellipse : public Function {
  public:
   Ellipse(double a, double b) : Function(a, b) {}
@@ -31,16 +31,16 @@ class Ellipse : public Function {
 
   void print() override {
     try {
-      cout << "Эллипс: ";
+      cout << "Р­Р»Р»РёРїСЃ: ";
       double result = calculateFunction();
       cout << result << ' ' << -result << '\n';
     } catch (...) {
-      cout << "невозможно взять корень!\n";
+      cout << "РЅРµРІРѕР·РјРѕР¶РЅРѕ РІР·СЏС‚СЊ РєРѕСЂРµРЅСЊ!\n";
     }
   }
 };
 
-// Производный класс гиперболы
+// РџСЂРѕРёР·РІРѕРґРЅС‹Р№ РєР»Р°СЃСЃ РіРёРїРµСЂР±РѕР»С‹
 class Hiperbola : public Function {
  public:
   Hiperbola(double a, double b) : Function(a, b) {}
@@ -53,16 +53,16 @@ class Hiperbola : public Function {
 
   void print() override {
     try {
-      cout << "Гипербола: ";
+      cout << "Р“РёРїРµСЂР±РѕР»Р°: ";
       double result = calculateFunction();
       cout << result << '\n';
     } catch (...) {
-      cout << "невозможно взять корень!\n";
+      cout << "РЅРµРІРѕР·РјРѕР¶РЅРѕ РІР·СЏС‚СЊ РєРѕСЂРµРЅСЊ!\n";
     }
   }
 };
 
-// Производный класс параболы
+// РџСЂРѕРёР·РІРѕРґРЅС‹Р№ РєР»Р°СЃСЃ РїР°СЂР°Р±РѕР»С‹
 class Parabola : public Function {
   double c;
 
@@ -71,10 +71,10 @@ class Parabola : public Function {
 
   double calculateFunction() override { return a * x * x + b * x + c; }
 
-  void print() override { cout << "Парабола: " << calculateFunction() << '\n'; }
+  void print() override { cout << "РџР°СЂР°Р±РѕР»Р°: " << calculateFunction() << '\n'; }
 };
 
-// Класс, реализующий вывод уравнений для заданных параметров
+// РљР»Р°СЃСЃ, СЂРµР°Р»РёР·СѓСЋС‰РёР№ РІС‹РІРѕРґ СѓСЂР°РІРЅРµРЅРёР№ РґР»СЏ Р·Р°РґР°РЅРЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ
 class Series {
   Function** func = nullptr;
   int curSize = 0, maxSize = 0;
@@ -84,13 +84,13 @@ class Series {
 
   Series(double step = 0.5) : step(step) {}
 
-  // Устанавить максимальный размер массива
+  // РЈСЃС‚Р°РЅР°РІРёС‚СЊ РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°
   void setMaxSize(int size) {
     maxSize = size;
     func = new Function*[maxSize];
   }
 
-  // Добавить производную функцию в массив абстрактного класса
+  /// Р”РѕР±Р°РІРёС‚СЊ РїСЂРѕРёР·РІРѕРґРЅСѓСЋ С„СѓРЅРєС†РёСЋ РІ РјР°СЃСЃРёРІ Р°Р±СЃС‚СЂР°РєС‚РЅРѕРіРѕ РєР»Р°СЃСЃР°
   void addFunction(Function* f) {
     if (curSize < maxSize)
       func[curSize++] = f;
@@ -98,8 +98,8 @@ class Series {
       throw std::runtime_error("Exceeded the maximum size of the array");
   }
 
-  // Функция для всех производных классов в массиве устанавливает новое значение
-  // х и выводит на экран значения функций
+  // Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІСЃРµС… РїСЂРѕРёР·РІРѕРґРЅС‹С… РєР»Р°СЃСЃРѕРІ РІ РјР°СЃСЃРёРІРµ СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РЅРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ
+  // С… Рё РІС‹РІРѕРґРёС‚ РЅР° СЌРєСЂР°РЅ Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёР№
   void setFunctions(double& x) {
     for (int i = 0; i < curSize; ++i) {
       func[i]->setX(x);
@@ -116,30 +116,30 @@ class Series {
 int main() {
   setlocale(LC_ALL, "russian");
   double a, b, c, x1, x2 = 0.;
-  cout << "Введите a, b, c: ";
+  cout << "Р’РІРµРґРёС‚Рµ a, b, c: ";
   cin >> a >> b >> c;
   Series ser;
-  ser.setMaxSize(3);  // Установка максимального количество функций
+  ser.setMaxSize(3);  // РЈСЃС‚Р°РЅРѕРІРєР° РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ РєРѕР»РёС‡РµСЃС‚РІРѕ С„СѓРЅРєС†РёР№
   try {
-    // Добавления функций в Series
+    // Р”РѕР±Р°РІР»РµРЅРёСЏ С„СѓРЅРєС†РёР№ РІ Series
     ser.addFunction(new Ellipse(a, b));
     ser.addFunction(new Hiperbola(a, b));
     ser.addFunction(new Parabola(a, b, c));
   } catch (...) {
-    cout << "\nПревышен максимальный размер массива!\n";
+    cout << "\nРџСЂРµРІС‹С€РµРЅ РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°!\n";
     return 0;
   }
 
   do {
-    cout << "\nВведите х: ";
+    cout << "\nР’РІРµРґРёС‚Рµ x: ";
     cin >> x1;
     double step = ser.step;
-    // Если следующий х меньше предыдущего, то шаг цикла отрицательный
+    // Р•СЃР»Рё СЃР»РµРґСѓСЋС‰РёР№ С… РјРµРЅСЊС€Рµ РїСЂРµРґС‹РґСѓС‰РµРіРѕ, С‚Рѕ С€Р°Рі С†РёРєР»Р° РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Р№
     if (x2 > x1) step *= -1.;
     for (auto i = x2;
          abs(x1 + step - i) > std::numeric_limits<double>::epsilon();
          i += step) {
-      cout << "Текущее значение х: " << i << '\n';
+      cout << "РўРµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ С…: " << i << '\n';
       ser.setFunctions(i);
     }
     x2 = x1;
