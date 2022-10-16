@@ -7,9 +7,9 @@ using std::cin;
 using std::cout;
 using std::string;
 
-// Структура точки
+// РЎС‚СЂСѓРєС‚СѓСЂР° С‚РѕС‡РєРё
 struct Point {
-  double x = 0., y = 0.;  // Координаты точки
+  double x = 0., y = 0.;  // РљРѕРѕСЂРґРёРЅР°С‚С‹ С‚РѕС‡РєРё
 
   Point& operator+=(const Point& pt) {
     x += pt.x, y += pt.y;
@@ -31,60 +31,60 @@ struct Point {
   }
 };
 
-// Класс фигуры
+// РљР»Р°СЃСЃ С„РёРіСѓСЂС‹
 class Shape {
  protected:
-  // Координаты вершин фигуры
+  // РљРѕРѕСЂРґРёРЅР°С‚С‹ РІРµСЂС€РёРЅ С„РёРіСѓСЂС‹
   Point* vertices_ = nullptr;
-  // Количество вершин фигуры
+  // РљРѕР»РёС‡РµСЃС‚РІРѕ РІРµСЂС€РёРЅ С„РёРіСѓСЂС‹
   const unsigned vertices_number_ = 0U;
-  // Радиус области вращения
+  // Р Р°РґРёСѓСЃ РѕР±Р»Р°СЃС‚Рё РІСЂР°С‰РµРЅРёСЏ
   double radius_ = 0.;
 
  public:
-  // ID фигуры
+  // ID С„РёРіСѓСЂС‹
   string id;
 
   explicit Shape(const unsigned verticesNumber)
       : vertices_number_(verticesNumber) {}
-  // Метод, вычисляющий площадь фигуры
+  // РњРµС‚РѕРґ, РІС‹С‡РёСЃР»СЏСЋС‰РёР№ РїР»РѕС‰Р°РґСЊ С„РёРіСѓСЂС‹
   virtual double calcSquare() = 0;
-  // Метод, вычисляющий центр тяжести фигуры
+  // РњРµС‚РѕРґ, РІС‹С‡РёСЃР»СЏСЋС‰РёР№ С†РµРЅС‚СЂ С‚СЏР¶РµСЃС‚Рё С„РёРіСѓСЂС‹
   virtual Point calcGravityCenter() = 0;
-  // Метод, осуществляющий вращение фигуры на заданный угол по часовой стрелке
-  // относительно центра тяжести
+  // РњРµС‚РѕРґ, РѕСЃСѓС‰РµСЃС‚РІР»СЏСЋС‰РёР№ РІСЂР°С‰РµРЅРёРµ С„РёРіСѓСЂС‹ РЅР° Р·Р°РґР°РЅРЅС‹Р№ СѓРіРѕР» РїРѕ С‡Р°СЃРѕРІРѕР№ СЃС‚СЂРµР»РєРµ
+  // РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ С†РµРЅС‚СЂР° С‚СЏР¶РµСЃС‚Рё
   virtual void rotate(double) = 0;
-  // Метод, осуществляющий перемещение фигуры на заданное смещение
+  // РњРµС‚РѕРґ, РѕСЃСѓС‰РµСЃС‚РІР»СЏСЋС‰РёР№ РїРµСЂРµРјРµС‰РµРЅРёРµ С„РёРіСѓСЂС‹ РЅР° Р·Р°РґР°РЅРЅРѕРµ СЃРјРµС‰РµРЅРёРµ
   virtual void move(Point&) = 0;
 
-  // Метод для получения количества вершин фигуры
+  // РњРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° РІРµСЂС€РёРЅ С„РёРіСѓСЂС‹
   [[nodiscard]] unsigned getVerticesCount() const { return vertices_number_; }
 
-  // Установить вершину по заданному номеру
+  // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РІРµСЂС€РёРЅСѓ РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ РЅРѕРјРµСЂСѓ
   void setVertex(const unsigned& index, const Point& newPoint) const {
     if (index > vertices_number_) throw "The point index is too large";
     vertices_[index] = newPoint;
   }
 
-  // Метод, выводящий информацию о фигуре на экран
+  // РњРµС‚РѕРґ, РІС‹РІРѕРґСЏС‰РёР№ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ С„РёРіСѓСЂРµ РЅР° СЌРєСЂР°РЅ
   void printShape() {
-    cout << '\n' << id << "\nТочки:";
+    cout << '\n' << id << "\nРўРѕС‡РєРё:";
     for (unsigned i = 0U; i < vertices_number_; ++i)
       cout << "\nx" << i << ": " << vertices_[i].x << " y" << i << ": "
            << vertices_[i].y;
     const auto [x, y] = calcGravityCenter();
-    cout << "\nПлощадь: " << calcSquare() << "\nЦентр в точке: " << x << ' '
+    cout << "\nРџР»РѕС‰Р°РґСЊ: " << calcSquare() << "\nР¦РµРЅС‚СЂ РІ С‚РѕС‡РєРµ: " << x << ' '
          << y << "\n\n";
   }
 
-  // Метод, вычисляющий радиус области вращения
+  // РњРµС‚РѕРґ, РІС‹С‡РёСЃР»СЏСЋС‰РёР№ СЂР°РґРёСѓСЃ РѕР±Р»Р°СЃС‚Рё РІСЂР°С‰РµРЅРёСЏ
   virtual double getShapeRadius() = 0;
-  // Проверка на корректность ввода
+  // РџСЂРѕРІРµСЂРєР° РЅР° РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РІРІРѕРґР°
   virtual bool isCorrectInput() = 0;
   virtual ~Shape() = default;
 };
 
-// Производный класс квадрата
+// РџСЂРѕРёР·РІРѕРґРЅС‹Р№ РєР»Р°СЃСЃ РєРІР°РґСЂР°С‚Р°
 class Square : public Shape {
  public:
   Square() : Shape(4) {
@@ -99,7 +99,7 @@ class Square : public Shape {
   }
 
   Point calcGravityCenter() override {
-    // Центр высчитывается как среднее арифметическое между всеми вершинами
+    // Р¦РµРЅС‚СЂ РІС‹СЃС‡РёС‚С‹РІР°РµС‚СЃСЏ РєР°Рє СЃСЂРµРґРЅРµРµ Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРѕРµ РјРµР¶РґСѓ РІСЃРµРјРё РІРµСЂС€РёРЅР°РјРё
     return {
         (vertices_[0].x + vertices_[1].x + vertices_[2].x + vertices_[3].x) /
             vertices_number_,
@@ -126,7 +126,7 @@ class Square : public Shape {
   }
 
   bool isCorrectInput() override {
-    // Проверка на равенство всех сторон
+    // РџСЂРѕРІРµСЂРєР° РЅР° СЂР°РІРµРЅСЃС‚РІРѕ РІСЃРµС… СЃС‚РѕСЂРѕРЅ
     if (hypot(vertices_[1].x - vertices_[0].x,
               vertices_[1].y - vertices_[0].y) ==
             hypot(vertices_[2].x - vertices_[1].x,
@@ -151,7 +151,7 @@ class Square : public Shape {
   ~Square() override { delete[] vertices_; }
 };
 
-// Производный класс параллелограмма
+// РџСЂРѕРёР·РІРѕРґРЅС‹Р№ РєР»Р°СЃСЃ РїР°СЂР°Р»Р»РµР»РѕРіСЂР°РјРјР°
 class Parallelogram : public Shape {
  public:
   Parallelogram() : Shape(4) {
@@ -177,7 +177,7 @@ class Parallelogram : public Shape {
   }
 
   Point calcGravityCenter() override {
-    // Центр высчитывается как среднее арифметическое между всеми вершинами
+    // Р¦РµРЅС‚СЂ РІС‹СЃС‡РёС‚С‹РІР°РµС‚СЃСЏ РєР°Рє СЃСЂРµРґРЅРµРµ Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРѕРµ РјРµР¶РґСѓ РІСЃРµРјРё РІРµСЂС€РёРЅР°РјРё
     return {
         (vertices_[0].x + vertices_[1].x + vertices_[2].x + vertices_[3].x) /
             vertices_number_,
@@ -203,7 +203,7 @@ class Parallelogram : public Shape {
   }
 
   bool isCorrectInput() override {
-    // Проверка на равенство противоположных сторон
+    // РџСЂРѕРІРµСЂРєР° РЅР° СЂР°РІРµРЅСЃС‚РІРѕ РїСЂРѕС‚РёРІРѕРїРѕР»РѕР¶РЅС‹С… СЃС‚РѕСЂРѕРЅ
     if (hypot(vertices_[1].x - vertices_[0].x,
               vertices_[1].y - vertices_[0].y) ==
             hypot(vertices_[3].x - vertices_[2].x,
@@ -225,9 +225,9 @@ class Parallelogram : public Shape {
   ~Parallelogram() override { delete[] vertices_; }
 };
 
-// Структура фабрики, позволяющей динамически создавать объекты
+// РЎС‚СЂСѓРєС‚СѓСЂР° С„Р°Р±СЂРёРєРё, РїРѕР·РІРѕР»СЏСЋС‰РµР№ РґРёРЅР°РјРёС‡РµСЃРєРё СЃРѕР·РґР°РІР°С‚СЊ РѕР±СЉРµРєС‚С‹
 struct FactoryShape {
-  // Статический метод создания фигуры по первой букве ID
+  // РЎС‚Р°С‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ СЃРѕР·РґР°РЅРёСЏ С„РёРіСѓСЂС‹ РїРѕ РїРµСЂРІРѕР№ Р±СѓРєРІРµ ID
   static Shape* createShape(const char& ch) {
     switch (ch) {
       case 's':
@@ -242,9 +242,9 @@ struct FactoryShape {
   }
 };
 
-// Класс выполняемых операций
+// РљР»Р°СЃСЃ РІС‹РїРѕР»РЅСЏРµРјС‹С… РѕРїРµСЂР°С†РёР№
 struct Operation {
-  // Статический метод, проверяющий включение первой фигуры во вторую
+  // РЎС‚Р°С‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ, РїСЂРѕРІРµСЂСЏСЋС‰РёР№ РІРєР»СЋС‡РµРЅРёРµ РїРµСЂРІРѕР№ С„РёРіСѓСЂС‹ РІРѕ РІС‚РѕСЂСѓСЋ
   static bool isInclude(Shape*& first, Shape*& second) {
     const Point center1 = first->calcGravityCenter(),
                 center2 = second->calcGravityCenter();
@@ -257,7 +257,7 @@ struct Operation {
       return true;
     return false;
   }
-  // Статический метод, проверяющий пересечение первой и второй фигуры
+  // РЎС‚Р°С‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ, РїСЂРѕРІРµСЂСЏСЋС‰РёР№ РїРµСЂРµСЃРµС‡РµРЅРёРµ РїРµСЂРІРѕР№ Рё РІС‚РѕСЂРѕР№ С„РёРіСѓСЂС‹
   static bool isIntersect(Shape*& first, Shape*& second) {
     const double centerDistance =
         hypot(first->calcGravityCenter().x - second->calcGravityCenter().x,
@@ -269,7 +269,7 @@ struct Operation {
       return true;
     return false;
   }
-  // Статический метод сравнения площадей двух фигур
+  // РЎС‚Р°С‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ СЃСЂР°РІРЅРµРЅРёСЏ РїР»РѕС‰Р°РґРµР№ РґРІСѓС… С„РёРіСѓСЂ
   static double compare(Shape*& first, Shape*& second) {
     return first->calcSquare() / second->calcSquare();
   }
@@ -280,37 +280,37 @@ int main() {
   constexpr int figureCount = 2;
   Shape* shape[figureCount]{};
   char type;
-  // Ввод двух фигур
+  // Р’РІРѕРґ РґРІСѓС… С„РёРіСѓСЂ
   for (int j = 0; j < figureCount; ++j) {
-    cout << "Введите тип фигуры: ";
+    cout << "Р’РІРµРґРёС‚Рµ С‚РёРї С„РёРіСѓСЂС‹: ";
     cin >> type;
     shape[j] = FactoryShape::createShape(type);
     if (shape[j] != nullptr) {
       cout << shape[j]->id << '\n';
-      cout << "Введите " << shape[j]->getVerticesCount()
-           << " вершины (x и y): ";
+      cout << "Р’РІРµРґРёС‚Рµ " << shape[j]->getVerticesCount()
+           << " РІРµСЂС€РёРЅС‹ (x Рё y): ";
       for (unsigned i = 0U; i < shape[j]->getVerticesCount(); ++i) {
         Point entered;
         cin >> entered.x >> entered.y;
         shape[j]->setVertex(i, entered);
       }
       if (!shape[j]->isCorrectInput()) {
-        cout << "\nФигура введена неверно!\n";
+        cout << "\nР¤РёРіСѓСЂР° РІРІРµРґРµРЅР° РЅРµРІРµСЂРЅРѕ!\n";
         --j;
       } else
         shape[j]->printShape();
     } else {
-      cout << "Данной фигуры не существует!\n";
+      cout << "Р”Р°РЅРЅРѕР№ С„РёРіСѓСЂС‹ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!\n";
       --j;
     }
   }
-  // Выбор операций над фигурами
+  // Р’С‹Р±РѕСЂ РѕРїРµСЂР°С†РёР№ РЅР°Рґ С„РёРіСѓСЂР°РјРё
   do {
     cout << std::setprecision(3) << std::fixed
-         << "1. Повернуть фигуру;\n2. Подвинуть фигуру;\n"
-            "3. Сравнить два объекта по площади;\n"
-            "4. Определить факт пересечения объектов;\n"
-            "5. определить факт включения одного объекта в другой.\n";
+         << "1. РџРѕРІРµСЂРЅСѓС‚СЊ С„РёРіСѓСЂСѓ;\n2. РџРѕРґРІРёРЅСѓС‚СЊ С„РёРіСѓСЂСѓ;\n"
+            "3. РЎСЂР°РІРЅРёС‚СЊ РґРІР° РѕР±СЉРµРєС‚Р° РїРѕ РїР»РѕС‰Р°РґРё;\n"
+            "4. РћРїСЂРµРґРµР»РёС‚СЊ С„Р°РєС‚ РїРµСЂРµСЃРµС‡РµРЅРёСЏ РѕР±СЉРµРєС‚РѕРІ;\n"
+            "5. РѕРїСЂРµРґРµР»РёС‚СЊ С„Р°РєС‚ РІРєР»СЋС‡РµРЅРёСЏ РѕРґРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° РІ РґСЂСѓРіРѕР№.\n";
     int choice;
     cin >> choice;
     try {
@@ -318,55 +318,55 @@ int main() {
       double angle, compRes;
       Point offset;
       switch (choice) {
-        case 1:  // Поворот
-          cout << "Номер фигуры: ";
+        case 1:  // РџРѕРІРѕСЂРѕС‚
+          cout << "РќРѕРјРµСЂ С„РёРіСѓСЂС‹: ";
           cin >> number;
           if (number - 1 > figureCount) throw "Shape does not exist!";
-          cout << "Угол поворота: ";
+          cout << "РЈРіРѕР» РїРѕРІРѕСЂРѕС‚Р°: ";
           cin >> angle;
           shape[number - 1]->rotate(angle);
           shape[number - 1]->printShape();
           break;
-        case 2:  // Подвинуть фигуру
-          cout << "Номер фигуры: ";
+        case 2:  // РџРѕРґРІРёРЅСѓС‚СЊ С„РёРіСѓСЂСѓ
+          cout << "РќРѕРјРµСЂ С„РёРіСѓСЂС‹: ";
           cin >> number;
           if (number - 1 > figureCount) throw "Shape does not exist!";
-          cout << "Смещение по оси х и y: ";
+          cout << "РЎРјРµС‰РµРЅРёРµ РїРѕ РѕСЃРё С… Рё y: ";
           cin >> offset.x >> offset.y;
           shape[number - 1]->move(offset);
           shape[number - 1]->printShape();
           break;
-        case 3:  // Сравнить площади
+        case 3:  // РЎСЂР°РІРЅРёС‚СЊ РїР»РѕС‰Р°РґРё
           compRes = Operation::compare(shape[0], shape[1]);
           if (compRes == 1)
-            cout << "Площади равны.\n";
+            cout << "РџР»РѕС‰Р°РґРё СЂР°РІРЅС‹.\n";
           else if (compRes > 1)
-            cout << "Фигура 1 больше фигуры 2 в " << compRes << " раз(а)\n";
+            cout << "Р¤РёРіСѓСЂР° 1 Р±РѕР»СЊС€Рµ С„РёРіСѓСЂС‹ 2 РІ " << compRes << " СЂР°Р·(Р°)\n";
           else
-            cout << "Фигура 2 больше фигуры 1 в " << 1 / compRes << " раз(а)\n";
+            cout << "Р¤РёРіСѓСЂР° 2 Р±РѕР»СЊС€Рµ С„РёРіСѓСЂС‹ 1 РІ " << 1 / compRes << " СЂР°Р·(Р°)\n";
           break;
-        case 4:  // Проверить пересечение
+        case 4:  // РџСЂРѕРІРµСЂРёС‚СЊ РїРµСЂРµСЃРµС‡РµРЅРёРµ
           if (Operation::isIntersect(shape[0], shape[1]))
-            cout << "Фигуры пересекаются.\n";
+            cout << "Р¤РёРіСѓСЂС‹ РїРµСЂРµСЃРµРєР°СЋС‚СЃСЏ.\n";
           else
-            cout << "Фигуры не пересекаются.\n";
+            cout << "Р¤РёРіСѓСЂС‹ РЅРµ РїРµСЂРµСЃРµРєР°СЋС‚СЃСЏ.\n";
           break;
-        case 5:  // Проверить включение
+        case 5:  // РџСЂРѕРІРµСЂРёС‚СЊ РІРєР»СЋС‡РµРЅРёРµ
           if (Operation::isInclude(shape[0], shape[1]))
-            cout << "Фигура 1 включается в фигуру 2.\n";
+            cout << "Р¤РёРіСѓСЂР° 1 РІРєР»СЋС‡Р°РµС‚СЃСЏ РІ С„РёРіСѓСЂСѓ 2.\n";
           else
-            cout << "Фигура 1 не включается в фигуру 2.\n";
+            cout << "Р¤РёРіСѓСЂР° 1 РЅРµ РІРєР»СЋС‡Р°РµС‚СЃСЏ РІ С„РёРіСѓСЂСѓ 2.\n";
           if (Operation::isInclude(shape[1], shape[0]))
-            cout << "Фигура 2 включается в фигуру 1.\n";
+            cout << "Р¤РёРіСѓСЂР° 2 РІРєР»СЋС‡Р°РµС‚СЃСЏ РІ С„РёРіСѓСЂСѓ 1.\n";
           else
-            cout << "Фигура 2 не включается в фигуру 1.\n";
+            cout << "Р¤РёРіСѓСЂР° 2 РЅРµ РІРєР»СЋС‡Р°РµС‚СЃСЏ РІ С„РёРіСѓСЂСѓ 1.\n";
           break;
         default:
           break;
       }
       if (choice == -1) break;
     } catch (...) {
-      cout << "Фигура не существует!";
+      cout << "Р¤РёРіСѓСЂР° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!";
       for (auto& i : shape) delete i;
       return 0;
     }
