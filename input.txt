@@ -1,0 +1,10 @@
+Ростов          ЮФУ		math/science/IT/biology			80 70 70 85
+Москва          МГУ		physics/biology/math				70 60 75
+Санкт-Петербург СПБГУ	economy/biology						80 85
+Ставрополь      СКФУ	physics/science/biology				60 65 60
+Томск			ТГУ		psychology/physics/biology/science	75 70 65 80
+Саратов			СГУ		geology/history/philology			70 50 65
+Санкт-Петербург ИТМО	IT/math								85 90
+Москва			МФТИ	physics/art/electronics/math		90 80 85 95
+Казань			КФУ		psychology/philosophy/math/science	65 70 75 75
+Владивосток		ДВФУ	math/art/pedagogy				60 65 60
