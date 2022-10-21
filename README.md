@@ -1,3 +1,5 @@
+<meta name="google-site-verification" content="PSmVE8vsNZ27u_Mi7hev_gY2OtJl_HjLxCQBbzYarX4" />
+
 # Это цикл лабораторных работ по курсу «Объектно-ориентированное программирование».
 
 ## 1. Первая работа посвящена классам и объектам в С++.
